@@ -10,6 +10,8 @@ class User {
     this.company,
     this.location,
     this.email,
+    this.followers,
+    this.following,
   });
 
   User.fromJson(dynamic json) {
@@ -21,6 +23,7 @@ class User {
     company = json['company'];
     location = json['location'];
     email = json['email'];
+
   }
   String? login;
   int? id;
@@ -30,8 +33,8 @@ class User {
   String? company;
   String? location;
   String? email;
-  int? followersCount;
-  int? followingCount;
+  int? followers;//followersCount
+  int? following;//followingCount
 
   User copyWith({
     String? login,
@@ -42,6 +45,8 @@ class User {
     String? company,
     String? location,
     String? email,
+    int? followers,
+    int? following,
   }) =>
       User(
         login: login ?? this.login,
@@ -52,6 +57,8 @@ class User {
         company: company ?? this.company,
         location: location ?? this.location,
         email: email ?? this.email,
+        followers: followers ?? this.followers,
+        following: following ?? this.following,
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -63,6 +70,8 @@ class User {
     map['company'] = company;
     map['location'] = location;
     map['email'] = email;
+    map['followers'] = followers;
+    map['following'] = following;
     return map;
   }
 }

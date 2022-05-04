@@ -18,6 +18,7 @@ class Repository {
     this.watchersCount,
     this.language,
     this.subscribersCount,
+    this.forksCount,
   });
 
   Repository.fromJson(dynamic json) {
@@ -38,7 +39,8 @@ class Repository {
     stargazersCount = json['stargazers_count'];
     watchersCount = json['watchers_count'];
     language = json['language'];
-    subscribersCount = json['subscribersCount'];
+    subscribersCount = json['subscribers_count'];
+    forksCount = json['forks_count'];
   }
   String? name;
   int? id;
@@ -56,6 +58,7 @@ class Repository {
   int? watchersCount;
   String? language;
   int? subscribersCount;
+  int? forksCount;
   Repository copyWith({
     String? name,
     int? id,
@@ -73,6 +76,7 @@ class Repository {
     int? watchersCount,
     String? language,
     int? subscribersCount,
+    int? forksCount,
   }) =>
       Repository(
         name: name ?? this.name,
@@ -91,6 +95,7 @@ class Repository {
         watchersCount: watchersCount ?? this.watchersCount,
         language: language ?? this.language,
         subscribersCount: subscribersCount ?? this.subscribersCount,
+        forksCount: forksCount ?? this.forksCount,
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -111,7 +116,8 @@ class Repository {
     map['stargazers_count'] = stargazersCount;
     map['watchers_count'] = watchersCount;
     map['language'] = language;
-    map['subscribersCount'] = subscribersCount;
+    map['subscribers_count'] = subscribersCount;
+    map['forks_count'] = forksCount;
     return map;
   }
 }
