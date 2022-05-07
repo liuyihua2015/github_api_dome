@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_api_dome/net/GitHub.dart';
 import 'package:github_api_dome/net/GithubServices.dart';
+import 'package:github_api_dome/page/PageHomeFeed.dart';
 
 void main() {
   final github = GitHub("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");
@@ -17,8 +18,9 @@ class MyApp extends StatelessWidget {
       title: "技术头条",
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:Container(),
+      home:PageHomeFeed(),
     );
   }
 }
