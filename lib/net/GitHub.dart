@@ -9,8 +9,12 @@ class GitHub {
 
   GitHub(this.token);
 
-  Future<http.Response> request(String method, String path,
-      Map<String, dynamic> params, dynamic body) async {
+  Future<http.Response> request(
+    String method,
+    String path, {
+    Map<String, dynamic>? params,
+    dynamic body,
+  }) async {
     var headers = {"Authorization": "token $token"};
     var queryString = "";
     if (params != null) {
