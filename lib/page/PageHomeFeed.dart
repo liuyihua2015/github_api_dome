@@ -18,6 +18,8 @@ class PageHomeFeed extends StatefulWidget {
 class _PageHomeFeedState extends State<PageHomeFeed> {
   List<Event> _events = [];
   bool _loading = false;
+  bool _hiddenLoading = false;
+
   int _currentPage = 1;
 
   @override
@@ -31,7 +33,7 @@ class _PageHomeFeedState extends State<PageHomeFeed> {
       print("拉取第$_currentPage页数据");
     }
     GithubServices.activityService
-        ?.listPersonalEvents("liuyihua2015", _currentPage, 30)
+        ?.listPersonalEvents("liuyihua2015", _currentPage, 10)
         .then((event) => {
               setState(() {
                 if (kDebugMode) {
@@ -40,6 +42,7 @@ class _PageHomeFeedState extends State<PageHomeFeed> {
                 _events.addAll(event); // 添加到数组中
                 _currentPage++;
                 _loading = false;
+                _hiddenLoading = event.isEmpty;
               })
             });
   }
@@ -57,33 +60,54 @@ class _PageHomeFeedState extends State<PageHomeFeed> {
   }
 
   bool _onScrollEvent(ScrollNotification notification) {
+    if (notification.metrics.extentAfter == 0 &&
+        notification.metrics.pixels >=
+            notification.metrics.maxScrollExtent * 0.8) {
+      if (_loading || _hiddenLoading) return false;
+      setState(() {
+        _loading = true;
+      });
+      loadNextPage();
+    }
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: NotificationListener<ScrollNotification>(
-          onNotification: _onScrollEvent,
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                  pinned: true, delegate: searchBarDelegate()),
-              SliverGrid(
-                  delegate: SliverChildListDelegate(createGrid()),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 2.0)),
-              SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                final itemIndex = index ~/ 2;
-                if (index.isEven) {
-                  return CardEvent(_events[itemIndex]);
-                }
-                return const Divider();
-              }, childCount: max(0, _events.length * 2 - 1))),
-            ],
+      body: Container(
+        color: Colors.white,
+        child: SafeArea(
+          child: NotificationListener<ScrollNotification>(
+            onNotification: _onScrollEvent,
+            child: Container(
+              color: Colors.white,
+              child: CustomScrollView(
+                slivers: <Widget>[
+                  SliverPersistentHeader(
+                      pinned: true, delegate: searchBarDelegate()),
+                   SliverGrid(
+                        delegate: SliverChildListDelegate(createGrid()),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 2.0)),
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                    final itemIndex = index ~/ 2;
+                    if (index.isEven) {
+                      return CardEvent(_events[itemIndex]);
+                    }
+                    return const Divider();
+                  }, childCount: max(0, _events.length * 2 - 1))),
+                  SliverToBoxAdapter(
+                      child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: _hiddenLoading==false?const Center(child: const CircularProgressIndicator()):Center(child: Text("没有更多了")),
+                  )),
+                ],
+              ),
+            ),
           ),
         ),
       ),

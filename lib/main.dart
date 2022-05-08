@@ -4,7 +4,7 @@ import 'package:github_api_dome/net/GithubServices.dart';
 import 'package:github_api_dome/page/PageHomeFeed.dart';
 
 void main() {
-  final github = GitHub("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");
+  final github = GitHub("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");
   GithubServices.init(github);
   runApp(const MyApp());
 }

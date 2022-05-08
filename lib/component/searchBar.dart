@@ -14,33 +14,36 @@ class _searchBarState extends State<searchBar> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SizedBox(
-        height: 40,
-        child: CupertinoTextField(
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.search,
-          controller: _controller,
-          placeholder: 'Search',
-          prefix: const Padding(
-            padding: EdgeInsets.fromLTRB(9, 6, 9, 6),
-            child: Icon(
-              Icons.search,
-              color: Colors.grey,
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+        child: SizedBox(
+          height: 44,
+          child: CupertinoTextField(
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.search,
+            controller: _controller,
+            placeholder: 'Search',
+            prefix: const Padding(
+              padding: EdgeInsets.fromLTRB(9, 6, 9, 6),
+              child: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
             ),
-          ),
-          suffix: IconButton(
-            icon: const Icon(
-              Icons.cancel,
-              color: Colors.grey,
+            suffix: IconButton(
+              icon: const Icon(
+                Icons.cancel,
+                color: Colors.grey,
+              ),
+              onPressed: () {
+                  _controller.clear();
+              },
             ),
-            onPressed: () {
-                _controller.clear();
-            },
+            suffixMode: OverlayVisibilityMode.editing,
+            style: const TextStyle(color: Colors.grey),
           ),
-          suffixMode: OverlayVisibilityMode.editing,
-          style: const TextStyle(color: Colors.grey),
         ),
       ),
     );

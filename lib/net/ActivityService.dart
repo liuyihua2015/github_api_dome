@@ -22,7 +22,7 @@ class ActivityService extends Service {
   Future<List<Event>> listPersonalEvents(
       String login, int page, int perPage) async {
     http.Response response = await gitHub.request(
-        'GET', "/users/$login/received_events/public",
+        'GET', "/users/$login/received_events",
         params: {"page": page, "per_page": perPage});
     if (kDebugMode) {
       print(response.body);
