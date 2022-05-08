@@ -17,8 +17,8 @@ class User {
   User.fromJson(dynamic json) {
     login = json['login'];
     id = json['id'];
-    avatarUrl = json['avatarUrl'];
-    htmlUrl = json['htmlUrl'];
+    avatarUrl = json['avatar_url'];
+    htmlUrl = json['html_url'];
     name = json['name'];
     company = json['company'];
     location = json['location'];
@@ -64,8 +64,8 @@ class User {
     final map = <String, dynamic>{};
     map['login'] = login;
     map['id'] = id;
-    map['avatarUrl'] = avatarUrl;
-    map['htmlUrl'] = htmlUrl;
+    map['avatar_url'] = avatarUrl;
+    map['html_url'] = htmlUrl;
     map['name'] = name;
     map['company'] = company;
     map['location'] = location;

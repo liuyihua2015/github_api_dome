@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:github_api_dome/Model/Activity.dart';
 import 'package:github_api_dome/net/GitHub.dart';
 import 'package:github_api_dome/net/Service.dart';
@@ -21,8 +22,11 @@ class ActivityService extends Service {
   Future<List<Event>> listPersonalEvents(
       String login, int page, int perPage) async {
     http.Response response = await gitHub.request(
-        'GET', "/users/$login/received_events",
+        'GET', "/users/$login/received_events/public",
         params: {"page": page, "per_page": perPage});
+    if (kDebugMode) {
+      print(response.body);
+    }
     final json = jsonDecode(response.body) as List;
     return json.map((e) => Event.fromJson(e)).toList();
   }

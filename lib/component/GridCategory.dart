@@ -7,7 +7,8 @@ class GridCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: _gridItem.getPage(context))),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey[200]!, width: 0.5),
@@ -15,9 +16,18 @@ class GridCategory extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(_gridItem.icon,color: _gridItem.color,size: 36,),
-            const SizedBox(height: 2,),
-            Text(_gridItem.title!,style: TextStyle(fontSize: 12,color: Colors.grey[600]),)
+            Icon(
+              _gridItem.icon,
+              color: _gridItem.color,
+              size: 36,
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Text(
+              _gridItem.title!,
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            )
           ],
         ),
       ),
