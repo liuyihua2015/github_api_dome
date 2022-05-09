@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_api_dome/Model/GridItem.dart';
+import 'package:github_api_dome/page/PagePublicFeed.dart';
 
 class GridCategory extends StatelessWidget {
   final GridItem _gridItem;
@@ -8,7 +9,7 @@ class GridCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: _gridItem.getPage(context))),
+          .push(MaterialPageRoute(builder: (context) => _gridItem.getPage(context))),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey[200]!, width: 0.5),

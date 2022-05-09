@@ -7,6 +7,7 @@ import 'package:github_api_dome/component/CardEvent.dart';
 import 'package:github_api_dome/component/GridCategory.dart';
 import 'package:github_api_dome/component/searchBar.dart';
 import 'package:github_api_dome/net/GithubServices.dart';
+import 'package:github_api_dome/page/PagePublicFeed.dart';
 
 class PageHomeFeed extends StatefulWidget {
   const PageHomeFeed({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _PageHomeFeedState extends State<PageHomeFeed> {
       GridItem(
           "GitHub Trends", Icons.trending_up, Colors.orange, (context) => null),
       GridItem("Public Events", Icons.timeline_outlined, Colors.green,
-          (context) => null),
+          (context) => PagePublicFeed()),
       GridItem("Users", Icons.people, Colors.pink, (context) => null),
       GridItem("Projects", Icons.work, Colors.blue, (context) => null),
     ];
